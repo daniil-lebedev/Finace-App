@@ -1,15 +1,11 @@
-<h1>This is the page to add new Budgets</h1>
-{% extends 'budget/base.html' %}
-
-{% load static %}
-
-{% block content %}
- <div>
-     <form action="" method="POST">
-         {% csrf_token %}<!--This tag is a Django security feature-->
-         {{form}}
+{% extends 'budget/base.html' %} {% load static %} {% block content %}
+<div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <!--This tag is a Django security feature-->
+        {{form}}
         <button type="submit" class="btn btn-success">Create</button>
-     </form>
- </div>
+    </form>
+</div>
 
 {% endblock %}
