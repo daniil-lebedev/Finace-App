@@ -2,8 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from .models import Project, Expanse
 from django.views.generic import CreateView
 from django.utils.text import slugify
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from .forms import ExpanseForm
+import json
 
 
 def project_list(request):
@@ -21,8 +22,14 @@ def project_detail(request, project_slug):
 			Expanse.objects.create(
 				project = project,
 				title = title,
-				amount = amount).save()
-		return HttpResponseRedirect(project_slug)
+				amount = amount
+			).save()
+			return HttpResponseRedirect(project_slug)
+	elif request.method == 'DELETE':
+		id = json.loads(request.body)['id']
+		expanse = get_object_or_404(Expanse, id=id)
+		expanse.delete()
+		return HttpResponse('')
 	return render(request,'budget/project_detail.html',{'project':project, 'expanse_list': project.expanses.all()})	
 
 

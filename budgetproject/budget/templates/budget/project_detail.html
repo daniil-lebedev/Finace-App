@@ -10,7 +10,7 @@
 	    		<div class="col s12 m12 14">
 	    			<div class="card-panel">
 	    				<h6 class="bold">Total Budget</h6>
-	    				<h1 class="bold">${{project.budget}}</h1>
+	    				<h1 class="bold">£{{project.budget}}</h1>
 	    			</div>
 	    		</div>
 	    	</div>
@@ -35,7 +35,7 @@
 							<div class="col 13">
 								<span class="title">£{{expanse.amount}}</span>
 							</div>
-							<a href="">
+							<a onclick="deleteSpending(this)" data-id="{{ expanse.id }}">
 								<i class="material-icons red-text right"> close</i>
 							</a>
 						</div>
@@ -69,5 +69,22 @@
 	
 	var elem = document.querySelector('select')
 	var instance = M.FormSelect.init(elem)
+
+	function deleteSpending(e){
+
+		let id = e.dataset.id /*gets the data attribute of the id*/
+		e.closest('li').remove()
+
+		fetch('', {
+			method: 'DELETE',
+			headers: {
+				'X-CSRFToken': '{{ csrf_token }}'
+			},	
+			body: JSON.stringify({
+				'id': id
+			}),
+			credentials: 'same-origin',
+		})
+	}
 	</script>
 {% endblock %}
