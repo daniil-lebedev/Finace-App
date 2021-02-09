@@ -33,6 +33,7 @@ def project_detail(request, project_slug):
 	return render(request,'budget/project_detail.html',{'project':project, 'expanse_list': project.expanses.all()})	
 
 
+
 class ViewBudgets(CreateView):
 	model = Project
 	template_name = 'budget/add.html'

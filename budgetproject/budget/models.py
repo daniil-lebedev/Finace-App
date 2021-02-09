@@ -7,9 +7,19 @@ class Project(models.Model):
     slug = models.SlugField(max_length=100,unique=True, blank=True)
     budget = models.IntegerField()
 
+    
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Project, self).save(*args, **kwargs)
+
+    """method to view how have been spent"""
+    def budget_spent(self):
+        spending_list = Expanse.objects.filter(project=self)
+        total_spending_amount = 0
+        for spending in spending_list:
+            total_spending_amount += spending.amount
+        return self.budget - total_spending_amount
+
 
 """This is the model for expanses"""
 class Expanse(models.Model):
