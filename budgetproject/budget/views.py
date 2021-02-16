@@ -6,34 +6,27 @@ from django.http import HttpResponseRedirect, HttpResponse
 from .forms import ExpanseForm
 import json
 
-
+"""view to display all the budgets"""
 def project_list(request):
-	return render(request,'budget/project_list.html')#returns budget webpage
+	display_all_budgets = Project.objects.all()
+	return render(request,'budget/project_list.html',{'display_all_budgets': display_all_budgets})#returns budget webpage
 
-
+"""view to delete and add new spending"""
 def project_detail(request, project_slug):
 	project = get_object_or_404(Project, slug=project_slug)
 	if request.method == 'POST':
-		form = ExpanseForm(request.POST) 
+		form = ExpanseForm(request.POST or None)
 		if form.is_valid():
-			title = form.cleaned_data['title']
-			amount = form.cleaned_data['amount']
-
-			Expanse.objects.create(
-				project = project,
-				title = title,
-				amount = amount
-			).save()
-			return HttpResponseRedirect(project_slug)
+			form.save()
 	elif request.method == 'DELETE':
 		id = json.loads(request.body)['id']
 		expanse = get_object_or_404(Expanse, id=id)
 		expanse.delete()
 		return HttpResponse('')
-	return render(request,'budget/project_detail.html',{'project':project, 'expanse_list': project.expanses.all()})	
+	return render(request,'budget/project_detail.html',{'project':project, 'expanse_list': project.expanses.all(), 'form': ExpanseForm})	
 
 
-
+"""view to create new budget"""
 class ViewBudgets(CreateView):
 	model = Project
 	template_name = 'budget/add.html'
