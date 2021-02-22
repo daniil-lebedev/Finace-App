@@ -43,21 +43,21 @@ class ViewBudgets(CreateView):
 		return slugify(self.request.POST['name'])
 
 """notes page render"""
-def home(request):
+def notes(request):
 	if request.method == 'POST':
 		form = NotesForm(request.POST or None)
 		if form.is_valid():
 			form.save()
 			all_notes = Notes.objects.all()
-		return render(request, 'budget/home.html', {'all_notes':all_notes})
+		return render(request, 'budget/notes.html', {'all_notes':all_notes})
 	else:
 		all_notes = Notes.objects.all()
-		return render(request, 'budget/home.html', {'all_notes':all_notes})
+		return render(request, 'budget/notes.html', {'all_notes':all_notes})
 
 """function to delete a note"""
 def deleteNote(request,note_id):
 	item = Notes.objects.get(pk=note_id)
 	item.delete()
 	messages.success(request, ('Note was delted'))
-	return redirect('home')
+	return redirect('notes')
 
