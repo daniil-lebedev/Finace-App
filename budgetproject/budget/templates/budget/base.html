@@ -24,11 +24,10 @@
 
 <nav>
     <div class="nav-wrapper black">
-        <a href="#" class="brand-logo">About</a>
+        <a href="{% url 'list' %}" class="brand-logo">Budgets</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="{% url 'list' %}">Home</a></li>
             <li><a href="{% url 'add' %}">New budget</a></li>
-            <li><a href="#">Notes</a></li>
+            <li><a href="{% url 'home' %}">Notes</a></li>
         </ul>
     </div>
 </nav>

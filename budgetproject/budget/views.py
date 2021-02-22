@@ -1,10 +1,11 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Project, Expanse
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Project, Expanse, Notes
 from django.views.generic import CreateView
 from django.utils.text import slugify
 from django.http import HttpResponseRedirect, HttpResponse
-from .forms import ExpanseForm
+from .forms import ExpanseForm, NotesForm
 import json
+from django.contrib import messages
 
 """view to display all the budgets"""
 def project_list(request):
@@ -40,4 +41,23 @@ class ViewBudgets(CreateView):
 
 	def get_success_url(self):
 		return slugify(self.request.POST['name'])
+
+"""notes page render"""
+def home(request):
+	if request.method == 'POST':
+		form = NotesForm(request.POST or None)
+		if form.is_valid():
+			form.save()
+			all_notes = Notes.objects.all()
+		return render(request, 'budget/home.html', {'all_notes':all_notes})
+	else:
+		all_notes = Notes.objects.all()
+		return render(request, 'budget/home.html', {'all_notes':all_notes})
+
+"""function to delete a note"""
+def deleteNote(request,note_id):
+	item = Notes.objects.get(pk=note_id)
+	item.delete()
+	messages.success(request, ('Note was delted'))
+	return redirect('home')
 

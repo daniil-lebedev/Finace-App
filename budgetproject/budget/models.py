@@ -28,3 +28,10 @@ class Expanse(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='expanses')
     title = models.CharField(max_length=100)
     amount = models.DecimalField(max_digits=8, decimal_places=2)
+
+"""Model for Notes"""
+class Notes(models.Model):
+    note = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.note
