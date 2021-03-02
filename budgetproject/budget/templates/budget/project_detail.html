@@ -3,6 +3,8 @@
 {% block content %}
 	<div class="container">
 	    <section class="section section-stats">
+			<h1><b>{{project.name}}</b></h1>
+			<br>
 	    	<div class="row">
 
 
@@ -27,8 +29,9 @@
 		<section class="section section-expanses">
 			<div class="row">
 				<button class="btn waves-effect right modal-trigger" href="#spedningModel">
-					<i class="material-icons white-text left">add_circle</i>+ Add Expanse
+					<i class="material-icons white-text left">add</i>Add Expanse
 				</button>
+				<a class="btn-floating btn-large waves-effect waves-light yellow" href="{% url 'export' %}"><i class="material-icons">file_download</i></a>
 			</div>
 			
 			<ul class="z-depth-1">
@@ -70,7 +73,7 @@
 			</form>
 		</div>
 	</div>
-
+	
 	<!--Materialise script to prompt the menu for entering the new spending-->
 	<script>
 	var elem = document.querySelector('.modal')
