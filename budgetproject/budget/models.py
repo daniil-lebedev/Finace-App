@@ -29,6 +29,9 @@ class Expanse(models.Model):
     title = models.CharField(max_length=100)
     amount = models.DecimalField(max_digits=8, decimal_places=2)
 
+    def __str__(self):
+        return self.title
+
 """Model for Notes"""
 class Notes(models.Model):
     note = models.CharField(max_length=200)
