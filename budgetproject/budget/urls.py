@@ -7,6 +7,7 @@ urlpatterns = [
     path('notes', views.notes, name='notes'),
     path('deleteNote/<note_id>', views.deleteNote, name='delete'),
     path('export_csv', views.exportSpendingCsv, name="export"),
+    path('export_csv_note', views.exportNotesCsv, name="exportnote"),
     path('add', views.ViewBudgets.as_view(),name='add'),
     path('<slug:project_slug>',views.project_detail,name="detail")#generally using data already obtained. For instance, a slug uses the title of an article to generate a URL.
 ]

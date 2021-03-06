@@ -74,3 +74,13 @@ def exportSpendingCsv(request):
 		writer.writerow(spending)	
 	response['Content-Disposition'] = 'attachment; filename="spendings.csv"'
 	return response
+
+def exportNotesCsv(request):
+	response = HttpResponse(content_type='text/csv')
+	writer = csv.writer(response)
+	writer.writerow(['Note'])
+
+	for thingies in Notes.objects.all().values_list('note'):#getting all values and fields
+		writer.writerow(thingies)	
+	response['Content-Disposition'] = 'attachment; filename="notes.csv"'
+	return response	

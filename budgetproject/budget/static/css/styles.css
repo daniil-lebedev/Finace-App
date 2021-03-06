@@ -4,16 +4,18 @@
 
 html {
     font-family: 'Montserrat';
-    background-color: #7ee8fa;
-    background-image: linear-gradient(315deg, #7ee8fa 0%, #80ff72 74%);
+    background-color: #9fa4c4;
+    background-image: linear-gradient(315deg, #9fa4c4 0%, #9e768f 74%);
 }
 
 .bold {
     font-weight: bold;
 }
-.row{
+
+.row {
     margin: 0!important;
 }
+
 
 /*no projeect list (no projects) */
 
@@ -29,39 +31,41 @@ html {
     margin-bottom: 50px;
 }
 
+
 /*project detail stats*/
-.section-stats .card-panel{
-	margin: 8px;
+
+.section-stats .card-panel {
+    margin: 8px;
 }
 
-.section-stats h1{
-	font-size: 4vw;
-	margin: 15px 0px;
+.section-stats h1 {
+    font-size: 4vw;
+    margin: 15px 0px;
 }
 
-
-@media(max-width: 992px){
-	.section-stats h1{
-		font-size: calc(16px + 6vw);
-
-	}
+@media(max-width: 992px) {
+    .section-stats h1 {
+        font-size: calc(16px + 6vw);
+    }
 }
+
 
 /*project detail expanses */
-.section-expanses button{
+
+.section-expanses button {
     padding: 0px 40px;
     font-weight: bold;
-    text-shadow: opx 3px 4px rgba(0,0,0 .25);
-    background-color:#6FCF97;
+    text-shadow: opx 3px 4px rgba(0, 0, 0 .25);
+    background-color: #6FCF97;
 }
 
-.section-expanses .expnse{
+.section-expanses .expnse {
     font-size: 16px;
     border-radius: 0;
     margin: 0;
 }
 
-.section-expanses .expanse .category{
+.section-expanses .expanse .category {
     font-size: 13px;
 }
 
