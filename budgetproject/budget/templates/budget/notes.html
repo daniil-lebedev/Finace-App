@@ -6,7 +6,7 @@
     {% for things in all_notes %}
     <tr>
         <td>{{things.note}}</td>
-        <td><a class="btn-floating btn-large waves-effect waves-light red" href="{% url 'delete' things.id %}"><i class="material-icons">delete</i></a></td>
+        <td><a class="material-icons red-text left" href="{% url 'delete' things.id %}"><i class="material-icons">delete</i></a></td>
     </tr>
     {% endfor %}
 </table>

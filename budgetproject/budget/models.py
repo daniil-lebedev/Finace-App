@@ -16,16 +16,16 @@ class Project(models.Model):
 
     """method to view how have been spent"""
     def budget_spent(self):
-        spending_list = Expanse.objects.filter(project=self)
+        spending_list = Expense.objects.filter(project=self)
         total_spending_amount = 0
         for spending in spending_list:
             total_spending_amount += spending.amount
         return self.budget - total_spending_amount
 
 
-"""This is the model for expanses"""
-class Expanse(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='expanses')
+"""This is the model for expenses"""
+class Expense(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='expenses')
     title = models.CharField(max_length=100)
     amount = models.DecimalField(max_digits=8, decimal_places=2)
 

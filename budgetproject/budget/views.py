@@ -1,10 +1,10 @@
 from django.db.models.query_utils import refs_expression
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Project, Expanse, Notes
+from .models import Project, Expense, Notes
 from django.views.generic import CreateView
 from django.utils.text import slugify
 from django.http import HttpResponseRedirect, HttpResponse, response
-from .forms import ExpanseForm, NotesForm
+from .forms import ExpenseForm, NotesForm
 import json
 from django.contrib import messages
 import csv
@@ -18,15 +18,15 @@ def project_list(request):
 def project_detail(request, project_slug):
 	project = get_object_or_404(Project, slug=project_slug)
 	if request.method == 'POST':
-		form = ExpanseForm(request.POST or None)
+		form = ExpenseForm(request.POST or None)
 		if form.is_valid():
 			form.save()
 	elif request.method == 'DELETE':
 		id = json.loads(request.body)['id']
-		expanse = get_object_or_404(Expanse, id=id)
-		expanse.delete()
+		expense = get_object_or_404(Expense, id=id)
+		expense.delete()
 		return HttpResponse('')
-	return render(request,'budget/project_detail.html',{'project':project, 'expanse_list': project.expanses.all(), 'form': ExpanseForm})	
+	return render(request,'budget/project_detail.html',{'project':project, 'expense_list': project.expenses.all(), 'form': ExpenseForm})	
 
 
 """view to create new budget"""
@@ -60,7 +60,6 @@ def notes(request):
 def deleteNote(request,note_id):
 	item = Notes.objects.get(pk=note_id)
 	item.delete()
-	messages.success(request, ('Note was delted'))
 	return redirect('notes')
 
 """function to export spendings as a csv file"""
@@ -70,11 +69,12 @@ def exportSpendingCsv(request):
 	writer = csv.writer(response)
 	writer.writerow(['Project', 'Name', 'Amount'])
 
-	for spending in Expanse.objects.all().values_list('project', 'title', 'amount'):#getting all values and fields
+	for spending in Expense.objects.all().values_list('project', 'title', 'amount'):#getting all values and fields
 		writer.writerow(spending)	
 	response['Content-Disposition'] = 'attachment; filename="spendings.csv"'
 	return response
 
+"""function to export notes as a csv file"""
 def exportNotesCsv(request):
 	response = HttpResponse(content_type='text/csv')
 	writer = csv.writer(response)

@@ -4,9 +4,9 @@ from django import forms
 from .models import Notes
 
 """This is the form for adding spending"""
-class ExpanseForm(ModelForm):
+class ExpenseForm(ModelForm):
     class Meta:
-        model = Expanse
+        model = Expense
         fields = '__all__'
 
 """Forms for notes"""
