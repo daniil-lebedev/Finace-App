@@ -10,7 +10,6 @@ class ExpenseForm(ModelForm):
         fields = '__all__'
 
 """Forms for notes"""
-
 class NotesForm(forms.ModelForm):
     class Meta:
         model = Notes
