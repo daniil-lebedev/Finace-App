@@ -67,9 +67,9 @@ def deleteNote(request,note_id):
 def exportSpendingCsv(request):
 	response = HttpResponse(content_type='text/csv')
 	writer = csv.writer(response)
-	writer.writerow(['Project', 'Name', 'Amount'])
+	writer.writerow(['Name', 'Amount'])
 
-	for spending in Expense.objects.all().values_list('project', 'title', 'amount'):#getting all values and fields
+	for spending in Expense.objects.all().values_list('title', 'amount'):#getting all values and fields
 		writer.writerow(spending)	
 	response['Content-Disposition'] = 'attachment; filename="spendings.csv"'
 	return response
