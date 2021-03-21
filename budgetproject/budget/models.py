@@ -3,18 +3,22 @@ from django.utils.text import slugify
 
 """this is the model for project"""
 class Project(models.Model):
-    name = models.CharField(max_length=100)#name of the project
+    #name of the project
+    name = models.CharField(max_length=100)
+    #unique url created from name e.g(Hello world to hello=world)
     slug = models.SlugField(max_length=100,unique=True, blank=True)
+    #the amount of money for the budget
     budget = models.IntegerField()
 
-    
+    #saving the budget
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Project, self).save(*args, **kwargs)
+    #display the name in admin page
     def __str__(self):
         return self.name
 
-    """method to view how have been spent"""
+    """function to subtract how much user spent"""
     def budget_spent(self):
         spending_list = Expense.objects.filter(project=self)
         total_spending_amount = 0
@@ -25,7 +29,8 @@ class Project(models.Model):
 
 """This is the model for expenses"""
 class Expense(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='expenses')
+    project = models.ForeignKey(Project, 
+    on_delete=models.CASCADE, related_name='expenses')
     title = models.CharField(max_length=100)
     amount = models.DecimalField(max_digits=8, decimal_places=2)
 
